@@ -6,39 +6,33 @@ function iugu_activate(){
 }
 
 function iugu_link($params){
-	$db_invoice = mysql_query("SELECT * FROM tblinvoices WHERE id='{$params['invoiceid']}' AND userid='{$params['clientdetails']['userid']}'") or $db_invoice = 0;
+	$db_invoice = mysql_query("SELECT * FROM tblinvoices WHERE id='{$params['invoiceid']}'") or $db_invoice = 0;
 	$dados_invoice = mysql_fetch_array($db_invoice);
-	
-	$db_invoice_items = mysql_query("SELECT amount, description, SUM(amount) AS total FROM tblinvoiceitems WHERE invoiceid='{$params['invoiceid']}' AND userid='{$params['clientdetails']['userid']}'") or $db_invoice_items = 0;
-	
 	if($dados_invoice['duedate'] < date('d/m/Y')){
 		$vencimento = date('d/m/Y', strtotime('+ '.$params['dias'].' days'));
 	}else{
 		$vencimento = date('d/m/Y', strtotime($dados_invoice['duedate']));
 	}
-	
-	$itens = "";
-	if($db_invoice_items){
-		while($dados_items = mysql_fetch_array($db_invoice_items)){
-			$valor = number_format($dados_items['amount'], 2, '', '');
-			$valor_total = number_format($dados_items['total'], 2, '', '');
-			
-			$itens .= '<input type="hidden" name="items[][description]" value="'.$dados_items['description'].'">
-		<input type="hidden" name="items[][quantity]" value="1">
-		<input type="hidden" name="items[][price_cents]" value="'.$valor.'">
-		';
-		}
-	}
+
+	$valor = number_format($dados_invoice['total'], 2, '', '');
 	
 	$code = '<form action="modules/gateways/iugu/gerar.php" method="POST">
 		<input type="hidden" name="api_token" value="'.$params['api_token'].'">
+		<input type="hidden" name="api_dias" value="'.$params['dias'].'">
 		<input type="hidden" name="return_url" value="'.$params['systemurl'].'/viewinvoice.php?id='.$params['invoiceid'].'&paymentsuccess=true">
 		<input type="hidden" name="expired_url" value="'.$params['systemurl'].'/viewinvoice.php?id='.$params['invoiceid'].'&paymentfailed=true">
 		<input type="hidden" name="notification_url" value="'.$params['systemurl'].'/modules/gateways/callback/iugu.php">
 		<input type="hidden" name="email" value="'.$params['clientdetails']['email'].'">
-		<input type="hidden" name="due_date" value="'.$vencimento.'">
-		'.$itens.'<input type="hidden" name="valor" value="'.$valor_total.'">
+		<input type="hidden" name="nome" value="'.$params['clientdetails']['fullname'].'">
+		<input type="hidden" name="rua" value="'.$params['clientdetails']['address1'].'">
+		<input type="hidden" name="bairro" value="'.$params['clientdetails']['address2'].'">
+		<input type="hidden" name="cidade" value="'.$params['clientdetails']['city'].'">
+		<input type="hidden" name="uf" value="'.$params['clientdetails']['state'].'">
+		<input type="hidden" name="cep" value="'.$params['clientdetails']['postcode'].'">
+		<input type="hidden" name="pais" value="'.$params['clientdetails']['country'].'">
 		<input type="hidden" name="invoice_id" value="'.$params['invoiceid'].'">
+		<input type="hidden" name="valor" value="'.$valor.'">
+		<input type="hidden" name="due_date" value="'.$vencimento.'">
 		<input type="hidden" name="ignore_due_email" value="true">
 		<input type="submit" id="btnPagar" value="Pagar">
 	</form>';
@@ -47,6 +41,6 @@ function iugu_link($params){
 }
 
 $GATEWAYMODULE["iuguname"]="iugu";
-$GATEWAYMODULE["iuguvisiblename"]="Iugu v1.3b";
+$GATEWAYMODULE["iuguvisiblename"]="Iugu v1.4b";
 $GATEWAYMODULE["iugutype"]="Invoices";
 ?>
