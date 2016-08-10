@@ -9,3 +9,5 @@
 - Selecione a aba Manage Existing Gateways (Apenas na V6).
 - Informe o Token da Iugu.
 - Clique em Save Changes.
+
+Suporte: luiz@domhost.com.br
