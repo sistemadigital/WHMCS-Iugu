@@ -36,7 +36,7 @@ if(mysql_num_rows($sql)){
 		}
 	}
 	
-	$db_cpf_cnpj = mysql_query("SELECT v.value AS cpf_cnpj FROM tblcustomfields f INNER JOIN tblcustomfieldsvalues v ON f.id = v.fieldid WHERE f.type='client' AND f.fieldname='CPF/CNPJ'") or $db_invoice = 0;
+	$db_cpf_cnpj = mysql_query("SELECT v.value AS cpf_cnpj FROM tblcustomfields f INNER JOIN tblcustomfieldsvalues v ON f.id = v.fieldid WHERE f.type='client' AND f.fieldname='CPF/CNPJ' AND v.relid='".$dados_invoice['userid']."'") or $db_invoice = 0;
 	$dados_cpf_cnpj = mysql_fetch_array($db_cpf_cnpj);
 	
 	Iugu::setApiKey($_POST['api_token']);
@@ -69,6 +69,8 @@ if(mysql_num_rows($sql)){
 		)
 	));
 	
+	// print_r($criar);
+
 	if($criar->secure_url){
 		mysql_query("INSERT INTO mod_iugu (fatura_id, iugu_id, secure_id, valor, vencimento) VALUES ('".$_POST['invoice_id']."', '".$criar->id."', '".$criar->secure_id."', '".$valor_total."', '".$vencimento."')");
 		header("Location: ".$criar->secure_url);
