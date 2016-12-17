@@ -1,4 +1,4 @@
-# iugu-whmcs
+# WHMCS-Iugu
 
 - Envie todas as pastas e documentos para a raiz do WHMCS.
 - Acesse o admin do WHMCS.
