@@ -11,4 +11,4 @@
 - Informe o Token da Iugu.
 - Clique em Save Changes.
 
-Suporte: luiz@domhost.com.br
+Suporte: luiz@modulosprontos.com.br
