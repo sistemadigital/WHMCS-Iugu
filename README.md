@@ -2,13 +2,11 @@
 
 - Envie todas as pastas e documentos para a raiz do WHMCS.
 - Acesse o admin do WHMCS.
-- Entre em Setup -> Addon Modules.
-- Encontre o addon da Iugu e clique em Activate.
-- Entre em Setup -> Custom Client Fields e insira um novo campo. Obrigatoriamente o Field Name deve ser "CPF/CNPJ" (sem aspas).
+- Entre em Setup -> Custom Client Fields e insira 2 novos campos, sendo um para o CPF/CNPJ e outro para o número do endereço do cliente.
 - Entre em Setup -> Payments -> Payment Gateways e selecione a aba All Payment Gateways (Apenas na V6).
 - Encontre a Iugu na lista e clique em Ativar.
 - Selecione a aba Manage Existing Gateways (Apenas na V6).
-- Informe o Token da Iugu.
+- Informe o Token da Iugu e preencha as demais informações.
 - Clique em Save Changes.
 
 Suporte: luiz@modulosprontos.com.br
