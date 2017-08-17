@@ -49,16 +49,6 @@ if($_POST['event'] == "invoice.status_changed"){
 
 		addInvoicePayment($invoiceid,$transid,$amount,$fee,$gatewaymodule);
 		logTransaction($GATEWAY["name"],$post_iugu,"Successful");
-		
-		$sql = mysql_query("SELECT * FROM mod_iugu WHERE fatura_id='".$invoiceid."' AND iugu_id != '".$consultar->id."'");
-		while($row = mysql_fetch_array($sql)){
-			Iugu::setApiKey($GATEWAY["api_token"]);
-			$cancelar = Iugu_Invoice::fetch($row['iugu_id']);
-			$cancelar->cancel();
-			$remover = Iugu_Invoice::fetch($row['iugu_id']);
-			$remover->delete();
-			mysql_query("DELETE FROM mod_iugu WHERE id='".$row['id']."'");
-		}
 
 	}
 }
