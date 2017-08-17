@@ -91,6 +91,7 @@ $criar = Iugu_Invoice::create(Array(
 		"address" => Array(
 			"street" => $_POST['rua'],
 			"number" => $_POST['num'],
+			"district" => $_POST['bairro'],
 			"city" => $_POST['cidade'],
 			"state" => $_POST['uf'],
 			"country" => $_POST['pais'],
