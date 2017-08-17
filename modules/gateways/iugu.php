@@ -52,14 +52,15 @@ function iugu_config(){
 	return $inputs;
 }
 
-function ValorCampo($campo){
-	$sql = mysql_query("SELECT value FROM tblcustomfieldsvalues WHERE fieldid = '$campo' AND relid='".$_SESSION['uid']."'");
-	$row = mysql_fetch_array($sql);
-	
-	return $row['value'];
-}
-
 function iugu_link($params){
+	$sql_doc = mysql_query("SELECT value FROM tblcustomfieldsvalues WHERE fieldid = '".$params['doc']."' AND relid='".$params['clientdetails']['userid']."'");
+	$row_doc = mysql_fetch_array($sql_doc);
+	
+	$sql_num = mysql_query("SELECT value FROM tblcustomfieldsvalues WHERE fieldid = '".$params['num']."' AND relid='".$params['clientdetails']['userid']."'");
+	$row_num = mysql_fetch_array($sql_num);
+	
+	$sql_inv = mysql_query("SELECT duedate AS value FROM tblinvoices WHERE id='".$params['invoiceid']."'");
+	$row_inv = mysql_fetch_array($sql_inv);
 	
 	if($params['clientdetails']['companyname']){
 		$nome = $params['clientdetails']['companyname'];
@@ -76,12 +77,12 @@ function iugu_link($params){
 		<input type="hidden" name="notification_url" value="'.$params['systemurl'].'/modules/gateways/callback/iugu.php">
 		<input type="hidden" name="invoice_id" value="'.$params['invoiceid'].'">
 		<input type="hidden" name="valor" value="'.$params['amount'].'">
-		<input type="hidden" name="due_date" value="'.$params['dueDate'].'">
+		<input type="hidden" name="due_date" value="'.$row_inv['value'].'">
 		<input type="hidden" name="email" value="'.$params['clientdetails']['email'].'">
 		<input type="hidden" name="nome" value="'.$nome.'">
-		<input type="hidden" name="doc" value="'.ValorCampo($params['doc']).'">
+		<input type="hidden" name="doc" value="'.$row_doc['value'].'">
 		<input type="hidden" name="rua" value="'.$params['clientdetails']['address1'].'">
-		<input type="hidden" name="num" value="'.ValorCampo($params['num']).'">
+		<input type="hidden" name="num" value="'.$row_num['value'].'">
 		<input type="hidden" name="bairro" value="'.$params['clientdetails']['address2'].'">
 		<input type="hidden" name="cidade" value="'.$params['clientdetails']['city'].'">
 		<input type="hidden" name="uf" value="'.$params['clientdetails']['state'].'">
