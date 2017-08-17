@@ -9,4 +9,4 @@
 - Informe o Token da Iugu e preencha as demais informações.
 - Clique em Save Changes.
 
-Suporte: luiz@modulosprontos.com.br
+Suporte: atendimento@sistema.digital
