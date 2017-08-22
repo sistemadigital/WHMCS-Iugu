@@ -20,7 +20,7 @@ if($_POST['event'] == "invoice.status_changed"){
 		"status" => $_POST["data"]["status"]
 	);
 	
-	Iugu::setApiKey($GATEWAY["api_token"]);
+	Iugu::setApiKey($GATEWAY["token"]);
 	$consultar = Iugu_Invoice::fetch($_POST["data"]["id"]);
 
 	if($consultar->status == "paid" || $consultar->status == "partially_paid"){
@@ -28,9 +28,9 @@ if($_POST['event'] == "invoice.status_changed"){
 		$taxa = explode("R$ ", $consultar->taxes_paid);
 
 		$status = $consultar->status;
-		$amount = str_replace(",", ".", $valor[1]);
-		$fee = str_replace(",", ".", $taxa[1]);
-
+		$amount = str_replace(",", ".", str_replace(".", "", $valor[1]));
+		$fee = str_replace(",", ".", str_replace(".", "", $taxa[1]));
+		
 		foreach($consultar->variables AS $variavel){
 			if($variavel->variable == "payment_data.transaction_number"){
 				$transid = $variavel->value;
