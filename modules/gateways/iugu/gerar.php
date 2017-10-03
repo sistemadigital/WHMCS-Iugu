@@ -77,7 +77,7 @@ $criar = Iugu_Invoice::create(Array(
 	"fines" => $fines,
 	"late_payment_fine" => $late_payment_fine,
 	"per_day_interest" => $per_day_interest,
-	"payable_with" => "bank_slip",
+	"payable_with" => "all",
 	"custom_variables" => Array(
 		Array(
 			"name" => "invoice_id",
