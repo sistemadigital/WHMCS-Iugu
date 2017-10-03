@@ -14,7 +14,7 @@ function iugu_config(){
     $inputs = array(
         'FriendlyName' => array(
             'Type' => 'System',
-            'Value' => 'Iugu v1.5',
+            'Value' => 'Iugu v1.5.1',
         ),
 		'token' => array(
             'FriendlyName' => 'Token',
