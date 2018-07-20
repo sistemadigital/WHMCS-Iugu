@@ -10,3 +10,5 @@
 - Clique em Save Changes.
 
 Suporte: atendimento@sistema.digital
+
+### Está disponível nosso novo fórum. Acesse e tire suas dúvidas: https://forum.sistema.digital/
